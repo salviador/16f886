@@ -24,6 +24,7 @@
 
 // #pragma config statements should precede project file includes.
 // Use project enums instead of #define for ON and OFF.
+//__MPLAB_REALICE__
 
 #include <xc.h>
 #include <stdint.h>
@@ -60,7 +61,6 @@ extern struct SOFT_PWM soft_pwm;
 
 void main(void) {
   uint8_t i, temp;
-  
   //Osc 8MHz internal
   OSCCONbits.IRCF = 7;
   //while(OSCCONbits.HTS==0);  

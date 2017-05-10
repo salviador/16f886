@@ -14,14 +14,26 @@ extern "C" {
     
 #include <stdint.h>
 #include <stdbool.h>
+#ifdef __ICCARM__
+#include "stm32f3xx_hal.h"
+#include "stm32f3xx.h"
+#endif        
+#ifdef __XC
 #include "varie.h"
-    
+#endif   
+            
 #define DELAY_DEBOUNCE 30
     
     struct SWITCH{
         //Hardware Pin assigned
-        unsigned char* port;
-        unsigned char pin;
+        #ifdef __ICCARM__
+          GPIO_TypeDef  *port;
+          uint32_t pin;
+        #endif        
+        #ifdef __XC
+            unsigned char* port;
+            unsigned char pin;
+        #endif        
         //Debounce variable     
         uint8_t state_debounce;
         uint32_t timewaitdebounce;
