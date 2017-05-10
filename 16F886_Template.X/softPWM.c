@@ -6,7 +6,6 @@
 #include "varie.h"
 #include "main.h"
 
-struct SOFT_PWM soft_pwm;
 
 void softPWM_init(struct SOFT_PWM* spwm, uint16_t freq){
     spwm->ms_time_freq = 1000/freq;

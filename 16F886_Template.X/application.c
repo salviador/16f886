@@ -26,7 +26,7 @@ struct OUTPUT *outputs[] = {&output_P1, &output_P2, &output_P3, &output_P4};
 
 extern struct EEP_VAR eepvar;  //Qui carico le variabili che voglio salvare
 
-extern struct SOFT_PWM soft_pwm;
+struct SOFT_PWM soft_pwm;
 
 void switch_init(void){
   WPUBbits.WPUB7 = 0;    
