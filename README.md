@@ -43,6 +43,25 @@
 							pulsanti[i]->changeState = false;
 						}
 					}
+## softPWM.c
+	(required ->varie.c)
+	software PWM
+	Use:
+		Define object
+			struct SOFT_PWM soft_pwm;
+		Assign Port and Pin of the uC
+			soft_pwm.port = &PORTA;
+			soft_pwm.pin = 7;
+		Setting HW of the uC as OUTPUT
+			TRISBbits.TRISB0 = 0;
+		Init Object
+			softPWM_init(&soft_pwm,50);	//obj,frequenza
+		Main:
+			Run Task Without delay[for 1 switch]
+				softPWM_task(&soft_pwm);
+			Setting PWM
+				softPWM_Set(&soft_pwm, percentage);	//percentage [0,100]
+
 					
 					
 	
