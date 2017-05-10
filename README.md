@@ -75,11 +75,13 @@
 				eepvar.xxxxxx = 0;
 				eepvar.xxxxxx = 0;
 			}
+			Now I have load all setting in the eepvar structure
 		WRITE
 			eepvar.xxxxxx
 			eepvar.xxxxxx
 			eepvar.xxxxxx
 			eeprom_Save();
+			Now I have SAVE in the eeprom all setting in the eepvar structure 
 
 			
 					
