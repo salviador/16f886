@@ -61,7 +61,12 @@ void pulsante_debounce(struct SWITCH* p){
             }
         break;
         case 1:
+        #ifdef __ICCARM__
+            if((HAL_GetTick() - p->timewaitdebounce)>=DELAY_DEBOUNCE){
+        #endif        
+        #ifdef __XC
             if((millis() - p->timewaitdebounce)>=DELAY_DEBOUNCE){
+        #endif                       
                 if(value != p->laststato){
                     p->laststato = value;
                     //Notifica Cambio Stato
