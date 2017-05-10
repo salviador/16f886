@@ -61,7 +61,26 @@
 				softPWM_task(&soft_pwm);
 			Setting PWM
 				softPWM_Set(&soft_pwm, percentage);	//percentage [0,100]
+## saveEEPROM.c
+	(required ->EEPROM Library)
+	Save and Load Structure od data in the EEPROM
+	Use:
+		Define object
+			in the "saveEEPROM.h" the "struct EEP_VAR"
+			modify the structure With variables to be saved or load in EEPROM;			
+		READ
+			if(eeprom_Load()==false){
+				//Se Non trovi salvato nulla in eeprom  o è corrotta, inizializza tutte le variabili
+				eepvar.xxxxxx = 0;
+				eepvar.xxxxxx = 0;
+				eepvar.xxxxxx = 0;
+			}
+		WRITE
+			eepvar.xxxxxx
+			eepvar.xxxxxx
+			eepvar.xxxxxx
+			eeprom_Save();
 
-					
+			
 					
 	
