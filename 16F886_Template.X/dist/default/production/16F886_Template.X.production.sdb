@@ -1,0 +1,680 @@
+[p LITE_MODE AUTOSTATIC PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F886 ]
+[d frameptr 6 ]
+"31 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _switch_init switch_init `(v  1 e 1 0 ]
+"60
+[v _buzzer_init buzzer_init `(v  1 e 1 0 ]
+"65
+[v _buzzer_Start buzzer_Start `(v  1 e 1 0 ]
+"70
+[v _buzzer_Stop buzzer_Stop `(v  1 e 1 0 ]
+"75
+[v _ADC_notte_init ADC_notte_init `(v  1 e 1 0 ]
+"86
+[v _ADC_IS_DONE ADC_IS_DONE `(uc  1 e 1 0 ]
+"89
+[v _ADC_START ADC_START `(v  1 e 1 0 ]
+"93
+[v _ADC_VALUE ADC_VALUE `(uc  1 e 1 0 ]
+"99
+[v _out_init out_init `(v  1 e 1 0 ]
+"156
+[v _out_toggle out_toggle `(v  1 e 1 0 ]
+"186
+[v _out_SW1_SW2__ON out_SW1_SW2__ON `(v  1 e 1 0 ]
+"211
+[v _out_mod1_SW4__ON out_mod1_SW4__ON `(v  1 e 1 0 ]
+"227
+[v _out_mod1_SW4__OFF out_mod1_SW4__OFF `(v  1 e 1 0 ]
+"238
+[v _ON_LED ON_LED `(v  1 e 1 0 ]
+"251
+[v _read_modalita_SW4 read_modalita_SW4 `(v  1 e 1 0 ]
+"257
+[v _save_modalita_SW4 save_modalita_SW4 `(v  1 e 1 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+"32 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awtoft.c
+[v ___awtoft __awtoft `(f  1 e 3 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"44 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+"28 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\pic\eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\pic\eeread.c
+[v _eeprom_read eeprom_read `(uc  1 e 1 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\pic\eewrite.c
+[v _eeprom_write eeprom_write `(v  1 e 1 0 ]
+"8 C:\Users\michele\Desktop\16f886\16F886_Template.X\isr.c
+[v _isr isr `II(v  1 e 1 0 ]
+"61 C:\Users\michele\Desktop\16f886\16F886_Template.X\main.c
+[v _main main `(v  1 e 1 0 ]
+"18 C:\Users\michele\Desktop\16f886\16F886_Template.X\saveEEPROM.c
+[v _eeprom_Load eeprom_Load `(uc  1 e 1 0 ]
+"41
+[v _eeprom_Save eeprom_Save `(v  1 e 1 0 ]
+"11 C:\Users\michele\Desktop\16f886\16F886_Template.X\softPWM.c
+[v _softPWM_init softPWM_init `(v  1 e 1 0 ]
+"18
+[v _softPWM_Set softPWM_Set `(v  1 e 1 0 ]
+"29
+[v _softPWM_task softPWM_task `(v  1 e 1 0 ]
+"4 C:\Users\michele\Desktop\16f886\16F886_Template.X\switch.c
+[v _pulsante_INIT_debounce pulsante_INIT_debounce `(v  1 e 1 0 ]
+"22
+[v _pulsanti_alldebounce_task pulsanti_alldebounce_task `(v  1 e 1 0 ]
+"32
+[v _pulsante_debounce pulsante_debounce `(v  1 e 1 0 ]
+"5 C:\Users\michele\Desktop\16f886\16F886_Template.X\varie.c
+[v _millis millis `(ul  1 e 4 0 ]
+[s S19 SWITCH 19 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `uc 1 state_debounce 1 3 `ul 1 timewaitdebounce 4 4 `uc 1 laststato 1 8 `uc 1 changeState 1 9 `uc 1 State 1 10 `ul 1 time_ONstate 4 11 `ul 1 time_OFFstate 4 15 ]
+"12 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _P1_ROSSO P1_ROSSO `S19  1 e 19 0 ]
+"13
+[v _P2_BLU P2_BLU `S19  1 e 19 0 ]
+"14
+[v _P3_BLU P3_BLU `S19  1 e 19 0 ]
+"15
+[v _P4_GIALLO P4_GIALLO `S19  1 e 19 0 ]
+"16
+[v _pulsanti pulsanti `[4]*.5S19  1 e 4 0 ]
+[s S269 APP 24 `uc 1 buzzer_state 1 0 `ul 1 buzzer_starttime 4 1 `uc 1 onLed_state 1 5 `ul 1 onLed_starttime 4 6 `ul 1 SW4_mod1_starttime 4 10 `uc 1 pwm 1 14 `uc 1 tpwm 1 15 `uc 1 pwmlast 1 16 `uc 1 pwmstatemachine 1 17 `ul 1 time_isteresi_crepuscolare 4 18 `uc 1 crepuscolare_changet 1 22 `uc 1 adc_flag 1 23 ]
+"18
+[v _app app `S269  1 e 24 0 ]
+[s S69 OUTPUT 7 `*.39uc 1 portPOTENZA 2 0 `uc 1 pinPOTENZA 1 2 `*.39uc 1 portLED 2 3 `uc 1 pinLED 1 5 `uc 1 state 1 6 ]
+"20
+[v _POWER_ONLED POWER_ONLED `S69  1 e 7 0 ]
+"21
+[v _output_P1 output_P1 `S69  1 e 7 0 ]
+"22
+[v _output_P2 output_P2 `S69  1 e 7 0 ]
+"23
+[v _output_P3 output_P3 `S69  1 e 7 0 ]
+"24
+[v _output_P4 output_P4 `S69  1 e 7 0 ]
+"25
+[v _outputs outputs `[4]*.4S69  1 e 4 0 ]
+"57 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic16f886.h
+[v _TMR0 TMR0 `VEuc  1 e 1 @1 ]
+"164
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+[s S647 . 1 `uc 1 RA0 1 0 :1:0 
+`uc 1 RA1 1 0 :1:1 
+`uc 1 RA2 1 0 :1:2 
+`uc 1 RA3 1 0 :1:3 
+`uc 1 RA4 1 0 :1:4 
+`uc 1 RA5 1 0 :1:5 
+`uc 1 RA6 1 0 :1:6 
+`uc 1 RA7 1 0 :1:7 
+]
+"181
+[u S656 . 1 `S647 1 . 1 0 ]
+[v _PORTAbits PORTAbits `VES656  1 e 1 @5 ]
+"226
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+[s S767 . 1 `uc 1 RB0 1 0 :1:0 
+`uc 1 RB1 1 0 :1:1 
+`uc 1 RB2 1 0 :1:2 
+`uc 1 RB3 1 0 :1:3 
+`uc 1 RB4 1 0 :1:4 
+`uc 1 RB5 1 0 :1:5 
+`uc 1 RB6 1 0 :1:6 
+`uc 1 RB7 1 0 :1:7 
+]
+"243
+[u S776 . 1 `S767 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES776  1 e 1 @6 ]
+"288
+[v _PORTC PORTC `VEuc  1 e 1 @7 ]
+[s S788 . 1 `uc 1 RC0 1 0 :1:0 
+`uc 1 RC1 1 0 :1:1 
+`uc 1 RC2 1 0 :1:2 
+`uc 1 RC3 1 0 :1:3 
+`uc 1 RC4 1 0 :1:4 
+`uc 1 RC5 1 0 :1:5 
+`uc 1 RC6 1 0 :1:6 
+`uc 1 RC7 1 0 :1:7 
+]
+"305
+[u S797 . 1 `S788 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES797  1 e 1 @7 ]
+[s S152 . 1 `uc 1 RBIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 RBIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 T0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"401
+[s S161 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 TMR0IE 1 0 :1:5 
+]
+[u S166 . 1 `S152 1 . 1 0 `S161 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES166  1 e 1 @11 ]
+[s S460 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 CCP1IF 1 0 :1:2 
+`uc 1 SSPIF 1 0 :1:3 
+`uc 1 TXIF 1 0 :1:4 
+`uc 1 RCIF 1 0 :1:5 
+`uc 1 ADIF 1 0 :1:6 
+]
+"472
+[u S468 . 1 `S460 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES468  1 e 1 @12 ]
+"1157
+[v _ADRESH ADRESH `VEuc  1 e 1 @30 ]
+[s S669 . 1 `uc 1 ADON 1 0 :1:0 
+`uc 1 GO_nDONE 1 0 :1:1 
+`uc 1 CHS 1 0 :4:2 
+`uc 1 ADCS 1 0 :2:6 
+]
+"1195
+[s S674 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO 1 0 :1:1 
+`uc 1 CHS0 1 0 :1:2 
+`uc 1 CHS1 1 0 :1:3 
+`uc 1 CHS2 1 0 :1:4 
+`uc 1 CHS3 1 0 :1:5 
+`uc 1 ADCS0 1 0 :1:6 
+`uc 1 ADCS1 1 0 :1:7 
+]
+[s S683 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 nDONE 1 0 :1:1 
+]
+[s S686 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO_DONE 1 0 :1:1 
+]
+[u S689 . 1 `S669 1 . 1 0 `S674 1 . 1 0 `S683 1 . 1 0 `S686 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES689  1 e 1 @31 ]
+[s S125 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nRBPU 1 0 :1:7 
+]
+"1285
+[s S132 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+]
+[u S136 . 1 `S125 1 . 1 0 `S132 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES136  1 e 1 @129 ]
+[s S626 . 1 `uc 1 TRISA0 1 0 :1:0 
+`uc 1 TRISA1 1 0 :1:1 
+`uc 1 TRISA2 1 0 :1:2 
+`uc 1 TRISA3 1 0 :1:3 
+`uc 1 TRISA4 1 0 :1:4 
+`uc 1 TRISA5 1 0 :1:5 
+`uc 1 TRISA6 1 0 :1:6 
+`uc 1 TRISA7 1 0 :1:7 
+]
+"1352
+[u S635 . 1 `S626 1 . 1 0 ]
+[v _TRISAbits TRISAbits `VES635  1 e 1 @133 ]
+[s S583 . 1 `uc 1 TRISB0 1 0 :1:0 
+`uc 1 TRISB1 1 0 :1:1 
+`uc 1 TRISB2 1 0 :1:2 
+`uc 1 TRISB3 1 0 :1:3 
+`uc 1 TRISB4 1 0 :1:4 
+`uc 1 TRISB5 1 0 :1:5 
+`uc 1 TRISB6 1 0 :1:6 
+`uc 1 TRISB7 1 0 :1:7 
+]
+"1414
+[u S592 . 1 `S583 1 . 1 0 ]
+[v _TRISBbits TRISBbits `VES592  1 e 1 @134 ]
+[s S746 . 1 `uc 1 TRISC0 1 0 :1:0 
+`uc 1 TRISC1 1 0 :1:1 
+`uc 1 TRISC2 1 0 :1:2 
+`uc 1 TRISC3 1 0 :1:3 
+`uc 1 TRISC4 1 0 :1:4 
+`uc 1 TRISC5 1 0 :1:5 
+`uc 1 TRISC6 1 0 :1:6 
+`uc 1 TRISC7 1 0 :1:7 
+]
+"1476
+[u S755 . 1 `S746 1 . 1 0 ]
+[v _TRISCbits TRISCbits `VES755  1 e 1 @135 ]
+[s S715 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 CCP1IE 1 0 :1:2 
+`uc 1 SSPIE 1 0 :1:3 
+`uc 1 TXIE 1 0 :1:4 
+`uc 1 RCIE 1 0 :1:5 
+`uc 1 ADIE 1 0 :1:6 
+]
+"1558
+[u S723 . 1 `S715 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES723  1 e 1 @140 ]
+[s S99 . 1 `uc 1 SCS 1 0 :1:0 
+`uc 1 LTS 1 0 :1:1 
+`uc 1 HTS 1 0 :1:2 
+`uc 1 OSTS 1 0 :1:3 
+`uc 1 IRCF 1 0 :3:4 
+]
+"1722
+[s S105 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 IRCF0 1 0 :1:4 
+`uc 1 IRCF1 1 0 :1:5 
+`uc 1 IRCF2 1 0 :1:6 
+]
+[u S110 . 1 `S99 1 . 1 0 `S105 1 . 1 0 ]
+[v _OSCCONbits OSCCONbits `VES110  1 e 1 @143 ]
+[s S556 . 1 `uc 1 WPUB 1 0 :8:0 
+]
+"2206
+[s S558 . 1 `uc 1 WPUB0 1 0 :1:0 
+`uc 1 WPUB1 1 0 :1:1 
+`uc 1 WPUB2 1 0 :1:2 
+`uc 1 WPUB3 1 0 :1:3 
+`uc 1 WPUB4 1 0 :1:4 
+`uc 1 WPUB5 1 0 :1:5 
+`uc 1 WPUB6 1 0 :1:6 
+`uc 1 WPUB7 1 0 :1:7 
+]
+[u S567 . 1 `S556 1 . 1 0 `S558 1 . 1 0 ]
+[v _WPUBbits WPUBbits `VES567  1 e 1 @149 ]
+"3085
+[v _EEDATA EEDATA `VEuc  1 e 1 @268 ]
+"3097
+[v _EEADR EEADR `VEuc  1 e 1 @269 ]
+"3227
+[v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
+[s S186 . 1 `uc 1 ANS0 1 0 :1:0 
+`uc 1 ANS1 1 0 :1:1 
+`uc 1 ANS2 1 0 :1:2 
+`uc 1 ANS3 1 0 :1:3 
+`uc 1 ANS4 1 0 :1:4 
+]
+"3241
+[u S192 . 1 `S186 1 . 1 0 ]
+[v _ANSELbits ANSELbits `VES192  1 e 1 @392 ]
+"3271
+[v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
+"3321
+[v _EECON1 EECON1 `VEuc  1 e 1 @396 ]
+"3366
+[v _EECON2 EECON2 `VEuc  1 e 1 @397 ]
+"3512
+[v _CARRY CARRY `VEb  1 e 0 @24 ]
+"3598
+[v _GIE GIE `VEb  1 e 0 @95 ]
+"3786
+[v _RD RD `VEb  1 e 0 @3168 ]
+"4042
+[v _WR WR `VEb  1 e 0 @3169 ]
+"4044
+[v _WREN WREN `VEb  1 e 0 @3170 ]
+[s S242 EEP_VAR 1 `uc 1 P4_state 1 0 ]
+"6 C:\Users\michele\Desktop\16f886\16F886_Template.X\saveEEPROM.c
+[v _eepvar eepvar `S242  1 e 1 0 ]
+[u S984 . 2 `ui 1 a 2 0 `[2]uc 1 bytes 2 0 ]
+"14
+[s S987 _conv16to8 2 `S984 1 . 2 0 ]
+[v _conv16to8 conv16to8 `S987  1 e 2 0 ]
+[s S312 SOFT_PWM 16 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `ui 1 ms_time_freq 2 3 `ui 1 ms_time_ON 2 5 `ui 1 ms_time_OFF 2 7 `uc 1 percent_Pwm 1 9 `ul 1 mstime 4 10 `uc 1 needchange 1 14 `uc 1 statepwm 1 15 ]
+"9 C:\Users\michele\Desktop\16f886\16F886_Template.X\softPWM.c
+[v _soft_pwm soft_pwm `S312  1 e 16 0 ]
+"3 C:\Users\michele\Desktop\16f886\16F886_Template.X\varie.c
+[v _timer0_millis timer0_millis `ul  1 e 4 0 ]
+"61 C:\Users\michele\Desktop\16f886\16F886_Template.X\main.c
+[v _main main `(v  1 e 1 0 ]
+{
+"62
+[v main@i i `uc  1 a 1 49 ]
+"186
+} 0
+"31 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _switch_init switch_init `(v  1 e 1 0 ]
+{
+"58
+} 0
+"4 C:\Users\michele\Desktop\16f886\16F886_Template.X\switch.c
+[v _pulsante_INIT_debounce pulsante_INIT_debounce `(v  1 e 1 0 ]
+{
+[s S19 SWITCH 19 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `uc 1 state_debounce 1 3 `ul 1 timewaitdebounce 4 4 `uc 1 laststato 1 8 `uc 1 changeState 1 9 `uc 1 State 1 10 `ul 1 time_ONstate 4 11 `ul 1 time_OFFstate 4 15 ]
+[v pulsante_INIT_debounce@p p `*.5S19  1 a 1 wreg ]
+"6
+[v pulsante_INIT_debounce@value value `uc  1 a 1 4 ]
+[v pulsante_INIT_debounce@pinmask pinmask `uc  1 a 1 3 ]
+"4
+[v pulsante_INIT_debounce@p p `*.5S19  1 a 1 wreg ]
+"7
+"4
+[v pulsante_INIT_debounce@p p `*.5S19  1 a 1 5 ]
+"19
+} 0
+"29 C:\Users\michele\Desktop\16f886\16F886_Template.X\softPWM.c
+[v _softPWM_task softPWM_task `(v  1 e 1 0 ]
+{
+[s S312 SOFT_PWM 16 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `ui 1 ms_time_freq 2 3 `ui 1 ms_time_ON 2 5 `ui 1 ms_time_OFF 2 7 `uc 1 percent_Pwm 1 9 `ul 1 mstime 4 10 `uc 1 needchange 1 14 `uc 1 statepwm 1 15 ]
+[v softPWM_task@spwm spwm `*.4S312  1 a 1 wreg ]
+"31
+[v softPWM_task@pinmask pinmask `uc  1 a 1 4 ]
+"29
+[v softPWM_task@spwm spwm `*.4S312  1 a 1 wreg ]
+"33
+"29
+[v softPWM_task@spwm spwm `*.4S312  1 a 1 5 ]
+"67
+} 0
+"257 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _save_modalita_SW4 save_modalita_SW4 `(v  1 e 1 0 ]
+{
+[v save_modalita_SW4@modalita modalita `uc  1 a 1 wreg ]
+[v save_modalita_SW4@modalita modalita `uc  1 a 1 wreg ]
+[v save_modalita_SW4@modalita modalita `uc  1 a 1 7 ]
+"265
+} 0
+"41 C:\Users\michele\Desktop\16f886\16F886_Template.X\saveEEPROM.c
+[v _eeprom_Save eeprom_Save `(v  1 e 1 0 ]
+{
+"42
+[v eeprom_Save@i i `ui  1 a 2 5 ]
+[v eeprom_Save@checksum checksum `ui  1 a 2 2 ]
+"43
+[v eeprom_Save@data data `uc  1 a 1 4 ]
+"55
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\pic\eewrite.c
+[v _eeprom_write eeprom_write `(v  1 e 1 0 ]
+{
+[v eeprom_write@addr addr `uc  1 a 1 wreg ]
+[v eeprom_write@addr addr `uc  1 a 1 wreg ]
+[v eeprom_write@value value `uc  1 p 1 4 ]
+[v eeprom_write@addr addr `uc  1 a 1 0 ]
+"9
+} 0
+"251 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _read_modalita_SW4 read_modalita_SW4 `(v  1 e 1 0 ]
+{
+"256
+} 0
+"18 C:\Users\michele\Desktop\16f886\16F886_Template.X\saveEEPROM.c
+[v _eeprom_Load eeprom_Load `(uc  1 e 1 0 ]
+{
+"20
+[v eeprom_Load@i i `ui  1 a 2 4 ]
+[v eeprom_Load@checksum checksum `ui  1 a 2 1 ]
+"21
+[v eeprom_Load@data data `uc  1 a 1 3 ]
+"39
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\pic\eeread.c
+[v _eeprom_read eeprom_read `(uc  1 e 1 0 ]
+{
+[v eeprom_read@addr addr `uc  1 a 1 wreg ]
+[v eeprom_read@addr addr `uc  1 a 1 wreg ]
+"9
+[v eeprom_read@addr addr `uc  1 a 1 5 ]
+"12
+} 0
+"22 C:\Users\michele\Desktop\16f886\16F886_Template.X\switch.c
+[v _pulsanti_alldebounce_task pulsanti_alldebounce_task `(v  1 e 1 0 ]
+{
+[s S19 SWITCH 19 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `uc 1 state_debounce 1 3 `ul 1 timewaitdebounce 4 4 `uc 1 laststato 1 8 `uc 1 changeState 1 9 `uc 1 State 1 10 `ul 1 time_ONstate 4 11 `ul 1 time_OFFstate 4 15 ]
+[v pulsanti_alldebounce_task@switchs switchs `*.4*.5S19  1 a 1 wreg ]
+"23
+[v pulsanti_alldebounce_task@i i `uc  1 a 1 17 ]
+"22
+[v pulsanti_alldebounce_task@switchs switchs `*.4*.5S19  1 a 1 wreg ]
+[v pulsanti_alldebounce_task@size size `uc  1 p 1 15 ]
+"25
+"22
+[v pulsanti_alldebounce_task@switchs switchs `*.4*.5S19  1 a 1 16 ]
+"29
+} 0
+"32
+[v _pulsante_debounce pulsante_debounce `(v  1 e 1 0 ]
+{
+[s S19 SWITCH 19 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `uc 1 state_debounce 1 3 `ul 1 timewaitdebounce 4 4 `uc 1 laststato 1 8 `uc 1 changeState 1 9 `uc 1 State 1 10 `ul 1 time_ONstate 4 11 `ul 1 time_OFFstate 4 15 ]
+[v pulsante_debounce@p p `*.5S19  1 a 1 wreg ]
+"34
+[v pulsante_debounce@value value `uc  1 a 1 13 ]
+[v pulsante_debounce@pinmask pinmask `uc  1 a 1 12 ]
+"32
+[v pulsante_debounce@p p `*.5S19  1 a 1 wreg ]
+"35
+"32
+[v pulsante_debounce@p p `*.5S19  1 a 1 14 ]
+"65
+} 0
+"156 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _out_toggle out_toggle `(v  1 e 1 0 ]
+{
+[s S69 OUTPUT 7 `*.39uc 1 portPOTENZA 2 0 `uc 1 pinPOTENZA 1 2 `*.39uc 1 portLED 2 3 `uc 1 pinLED 1 5 `uc 1 state 1 6 ]
+[v out_toggle@p p `*.4S69  1 a 1 wreg ]
+"158
+[v out_toggle@pinmask pinmask `uc  1 a 1 4 ]
+"156
+[v out_toggle@p p `*.4S69  1 a 1 wreg ]
+"160
+"156
+[v out_toggle@p p `*.4S69  1 a 1 5 ]
+"185
+} 0
+"211
+[v _out_mod1_SW4__ON out_mod1_SW4__ON `(v  1 e 1 0 ]
+{
+[s S69 OUTPUT 7 `*.39uc 1 portPOTENZA 2 0 `uc 1 pinPOTENZA 1 2 `*.39uc 1 portLED 2 3 `uc 1 pinLED 1 5 `uc 1 state 1 6 ]
+[v out_mod1_SW4__ON@v v `*.4S69  1 a 1 wreg ]
+"213
+[v out_mod1_SW4__ON@pinmask pinmask `uc  1 a 1 4 ]
+"211
+[v out_mod1_SW4__ON@v v `*.4S69  1 a 1 wreg ]
+"216
+"211
+[v out_mod1_SW4__ON@v v `*.4S69  1 a 1 5 ]
+"225
+} 0
+"227
+[v _out_mod1_SW4__OFF out_mod1_SW4__OFF `(v  1 e 1 0 ]
+{
+[s S69 OUTPUT 7 `*.39uc 1 portPOTENZA 2 0 `uc 1 pinPOTENZA 1 2 `*.39uc 1 portLED 2 3 `uc 1 pinLED 1 5 `uc 1 state 1 6 ]
+[v out_mod1_SW4__OFF@v v `*.4S69  1 a 1 wreg ]
+"229
+[v out_mod1_SW4__OFF@pinmask pinmask `uc  1 a 1 4 ]
+"227
+[v out_mod1_SW4__OFF@v v `*.4S69  1 a 1 wreg ]
+"231
+"227
+[v out_mod1_SW4__OFF@v v `*.4S69  1 a 1 5 ]
+"236
+} 0
+"99
+[v _out_init out_init `(v  1 e 1 0 ]
+{
+"154
+} 0
+"11 C:\Users\michele\Desktop\16f886\16F886_Template.X\softPWM.c
+[v _softPWM_init softPWM_init `(v  1 e 1 0 ]
+{
+[s S312 SOFT_PWM 16 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `ui 1 ms_time_freq 2 3 `ui 1 ms_time_ON 2 5 `ui 1 ms_time_OFF 2 7 `uc 1 percent_Pwm 1 9 `ul 1 mstime 4 10 `uc 1 needchange 1 14 `uc 1 statepwm 1 15 ]
+[v softPWM_init@spwm spwm `*.4S312  1 a 1 wreg ]
+[v softPWM_init@spwm spwm `*.4S312  1 a 1 wreg ]
+[v softPWM_init@freq freq `ui  1 p 2 41 ]
+[v softPWM_init@spwm spwm `*.4S312  1 a 1 43 ]
+"16
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwdiv@quotient quotient `ui  1 a 2 5 ]
+"12
+[v ___lwdiv@counter counter `uc  1 a 1 4 ]
+"6
+[v ___lwdiv@divisor divisor `ui  1 p 2 0 ]
+[v ___lwdiv@dividend dividend `ui  1 p 2 2 ]
+"31
+} 0
+"186 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _out_SW1_SW2__ON out_SW1_SW2__ON `(v  1 e 1 0 ]
+{
+[s S69 OUTPUT 7 `*.39uc 1 portPOTENZA 2 0 `uc 1 pinPOTENZA 1 2 `*.39uc 1 portLED 2 3 `uc 1 pinLED 1 5 `uc 1 state 1 6 ]
+[v out_SW1_SW2__ON@o1 o1 `*.4S69  1 a 1 wreg ]
+"188
+[v out_SW1_SW2__ON@pinmask pinmask `uc  1 a 1 4 ]
+"186
+[v out_SW1_SW2__ON@o1 o1 `*.4S69  1 a 1 wreg ]
+[v out_SW1_SW2__ON@o2 o2 `*.4S69  1 p 1 0 ]
+"191
+"186
+[v out_SW1_SW2__ON@o1 o1 `*.4S69  1 a 1 5 ]
+"209
+} 0
+"60
+[v _buzzer_init buzzer_init `(v  1 e 1 0 ]
+{
+"63
+} 0
+"70
+[v _buzzer_Stop buzzer_Stop `(v  1 e 1 0 ]
+{
+"73
+} 0
+"65
+[v _buzzer_Start buzzer_Start `(v  1 e 1 0 ]
+{
+"69
+} 0
+"238
+[v _ON_LED ON_LED `(v  1 e 1 0 ]
+{
+[v ON_LED@state state `uc  1 a 1 wreg ]
+[v ON_LED@state state `uc  1 a 1 wreg ]
+[v ON_LED@state state `uc  1 a 1 42 ]
+"249
+} 0
+"18 C:\Users\michele\Desktop\16f886\16F886_Template.X\softPWM.c
+[v _softPWM_Set softPWM_Set `(v  1 e 1 0 ]
+{
+[s S312 SOFT_PWM 16 `*.39uc 1 port 2 0 `uc 1 pin 1 2 `ui 1 ms_time_freq 2 3 `ui 1 ms_time_ON 2 5 `ui 1 ms_time_OFF 2 7 `uc 1 percent_Pwm 1 9 `ul 1 mstime 4 10 `uc 1 needchange 1 14 `uc 1 statepwm 1 15 ]
+[v softPWM_Set@spwm spwm `*.4S312  1 a 1 wreg ]
+"19
+[v softPWM_Set@t t `f  1 a 3 37 ]
+[v softPWM_Set@p p `f  1 a 3 34 ]
+"18
+[v softPWM_Set@spwm spwm `*.4S312  1 a 1 wreg ]
+[v softPWM_Set@perc perc `uc  1 p 1 27 ]
+"20
+"18
+[v softPWM_Set@spwm spwm `*.4S312  1 a 1 40 ]
+"27
+} 0
+"28 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+{
+[v ___lwtoft@c c `ui  1 p 2 8 ]
+"31
+} 0
+"44 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\fttol.c
+[v ___fttol __fttol `(l  1 e 4 0 ]
+{
+"47
+[v ___fttol@lval lval `ul  1 a 4 9 ]
+"46
+[v ___fttol@exp1 exp1 `uc  1 a 1 13 ]
+[v ___fttol@sign1 sign1 `uc  1 a 1 8 ]
+"44
+[v ___fttol@f1 f1 `f  1 p 3 0 ]
+"73
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+{
+"65
+[v ___ftmul@f3_as_product f3_as_product `um  1 a 3 22 ]
+"64
+[v ___ftmul@sign sign `uc  1 a 1 26 ]
+[v ___ftmul@cntr cntr `uc  1 a 1 25 ]
+[v ___ftmul@exp exp `uc  1 a 1 21 ]
+"62
+[v ___ftmul@f1 f1 `f  1 p 3 11 ]
+[v ___ftmul@f2 f2 `f  1 p 3 14 ]
+"157
+} 0
+"32 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awtoft.c
+[v ___awtoft __awtoft `(f  1 e 3 0 ]
+{
+"34
+[v ___awtoft@sign sign `uc  1 a 1 5 ]
+"32
+[v ___awtoft@c c `i  1 p 2 8 ]
+"42
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+{
+[v ___ftpack@arg arg `um  1 p 3 0 ]
+[v ___ftpack@exp exp `uc  1 p 1 3 ]
+[v ___ftpack@sign sign `uc  1 p 1 4 ]
+"86
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\awdiv.c
+[v ___awdiv __awdiv `(i  1 e 2 0 ]
+{
+"11
+[v ___awdiv@quotient quotient `i  1 a 2 6 ]
+"12
+[v ___awdiv@sign sign `uc  1 a 1 5 ]
+[v ___awdiv@counter counter `uc  1 a 1 4 ]
+"6
+[v ___awdiv@divisor divisor `i  1 p 2 0 ]
+[v ___awdiv@dividend dividend `i  1 p 2 2 ]
+"42
+} 0
+"5 C:\Users\michele\Desktop\16f886\16F886_Template.X\varie.c
+[v _millis millis `(ul  1 e 4 0 ]
+{
+"6
+[v millis@m m `ul  1 a 4 4 ]
+"11
+} 0
+"75 C:\Users\michele\Desktop\16f886\16F886_Template.X\application.c
+[v _ADC_notte_init ADC_notte_init `(v  1 e 1 0 ]
+{
+"85
+} 0
+"93
+[v _ADC_VALUE ADC_VALUE `(uc  1 e 1 0 ]
+{
+"94
+[v ADC_VALUE@adcva adcva `uc  1 a 1 5 ]
+"97
+} 0
+"89
+[v _ADC_START ADC_START `(v  1 e 1 0 ]
+{
+"92
+} 0
+"86
+[v _ADC_IS_DONE ADC_IS_DONE `(uc  1 e 1 0 ]
+{
+"88
+} 0
+"8 C:\Users\michele\Desktop\16f886\16F886_Template.X\isr.c
+[v _isr isr `II(v  1 e 1 0 ]
+{
+"19
+} 0
