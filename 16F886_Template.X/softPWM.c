@@ -39,7 +39,7 @@ void softPWM_task(struct SOFT_PWM* spwm){
         pinmask = (1<<spwm->pin);
         *spwm->port = *spwm->port | pinmask;
         spwm->needchange=false;
-    }else{
+    }else if((spwm->percent_Pwm != 0)&&(spwm->percent_Pwm != 100)){
         //modula
         if(spwm->statepwm){
             //se stai on
