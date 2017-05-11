@@ -1,5 +1,5 @@
 // PIC16F886 Configuration Bit Settings
-#define BUZZET_TIME 50
+#define BUZZET_TIME_SHORT 50
 #define PRESS_LONG_TIME 5000
 #define ONLED_TIME 5000
 #define SW4_MOD1_TIME 1000
@@ -63,7 +63,7 @@ void main(void) {
   uint8_t i, temp;
   //Osc 8MHz internal
   OSCCONbits.IRCF = 7;
-  //while(OSCCONbits.HTS==0);  
+  while(OSCCONbits.HTS==0);  
   //Timer0
   OPTION_REGbits.T0CS = 0;          // Fosc / 4
   OPTION_REGbits.PSA = 0;           
@@ -106,7 +106,7 @@ void main(void) {
                 }else{
                     out_toggle(outputs[i]);
                 }
-                buzzer_Start();
+                buzzer_Start(BUZZET_TIME_SHORT);
             }
             pulsanti[i]->changeState = false;
         }
@@ -115,7 +115,7 @@ void main(void) {
     //Check if Switch press > 5 second  
     if((P4_GIALLO.State == false) && ((millis()- P4_GIALLO.time_OFFstate)>=PRESS_LONG_TIME) ){
         //Cambia modalita SW4
-        buzzer_Start();
+        buzzer_Start(2000);
         if(eepvar.P4_state == 0){
             save_modalita_SW4(1);
         }else{
@@ -123,16 +123,33 @@ void main(void) {
         }
         P4_GIALLO.State = true;
     }
+    //Check if Switch press > xxxx second  beep beep beep
+    if((P4_GIALLO.State == false) && ((millis()- P4_GIALLO.time_OFFstate)>=1000) ){
+        //beep beep beep
+        switch(app.state_P4_SWITCH_INTERMEDIO_BEEPBEEP){
+            case 0:
+                buzzer_Start(BUZZET_TIME_SHORT);
+                app.state_P4_SWITCH_INTERMEDIO_BEEPBEEP = 1;
+                app.time_P4_SWITCH_INTERMEDIO_BEEPBEEP = millis();
+            break;            
+            case 1:
+                if((millis()-app.time_P4_SWITCH_INTERMEDIO_BEEPBEEP)>200){
+                    app.state_P4_SWITCH_INTERMEDIO_BEEPBEEP = 0;
+                    app.time_P4_SWITCH_INTERMEDIO_BEEPBEEP = millis();
+                }
+            break;
+        }
+    }    
     NOP();
     //Buzzer task stop
     if(app.buzzer_state){
-        if((millis()-app.buzzer_starttime)>=BUZZET_TIME){
+        if((millis()-app.buzzer_starttime)>=app.buzzer_duratabeep){
             buzzer_Stop();
         }
     }
     NOP();
-    //OnLed task stop
-    if(app.onLed_state){
+    //OnLed task stop se inattivi
+    if((app.onLed_state)&&(output_P1.state == 0)&&(output_P2.state == 0)&&(output_P3.state == 0)&&(output_P4.state == 0)){
         if((millis()-app.onLed_starttime)>=ONLED_TIME){
             ON_LED(false);
         }

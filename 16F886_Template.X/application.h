@@ -21,11 +21,15 @@ extern "C" {
         //BUZZER
         bool buzzer_state;
         uint32_t buzzer_starttime;
+        uint16_t buzzer_duratabeep;        
         //TIME Inactive ON_LED
         bool onLed_state;
         uint32_t onLed_starttime;        
         //SW4 modalita 1
         uint32_t SW4_mod1_starttime;  
+        //---
+        uint8_t state_P4_SWITCH_INTERMEDIO_BEEPBEEP;
+        uint32_t time_P4_SWITCH_INTERMEDIO_BEEPBEEP;
         //soglia crepuscolare pwm led
         uint8_t pwm;         //variabile pwm di riferimento
                             //temp pwm
@@ -48,7 +52,7 @@ extern "C" {
     
     void switch_init(void);
     void buzzer_init(void);
-    void buzzer_Start(void);
+    void buzzer_Start(uint16_t durata);
     void buzzer_Stop(void);
     void out_init(void);
     void out_toggle(struct OUTPUT* p);

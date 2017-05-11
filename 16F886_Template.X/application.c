@@ -62,10 +62,11 @@ void buzzer_init(void){
  PORTAbits.RA6 = 0;
 }
 
-void buzzer_Start(void){
+void buzzer_Start(uint16_t durata){
  PORTAbits.RA6 = 1;
  app.buzzer_state = 1;
  app.buzzer_starttime = millis();
+ app.buzzer_duratabeep = durata;
 }
 void buzzer_Stop(void){
  PORTAbits.RA6 = 0;
