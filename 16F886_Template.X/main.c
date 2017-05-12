@@ -4,6 +4,15 @@
 #define ONLED_TIME 5000
 #define SW4_MOD1_TIME 1000
 #define CREPUSCOLARE 35
+//------------
+#define BATTERIA_12v_or_24v  156    //18.0V
+
+#define BATTERIA_12v_MID    100     //11.8V
+#define BATTERIA_12v_LOW    83     //10 volt
+
+#define BATTERIA_24v_MID    207     //23.6V
+#define BATTERIA_24v_LOW    176     //20 volt
+
 // 'C' source line config statements
 
 // CONFIG1
@@ -84,7 +93,7 @@ void main(void) {
   buzzer_init();
   out_init();  
   read_modalita_SW4();
-  ADC_notte_init();
+  ADC_sequence_init(BATTERIA_12v_or_24v);
 
   NOP();
  
@@ -161,43 +170,70 @@ void main(void) {
     }
     NOP();
     //adc crepuscolare
-    if(ADC_IS_DONE()){
-        if(ADC_VALUE()<= CREPUSCOLARE){
-            app.tpwm=10;
-        }else{
-            app.tpwm=100;
-        }
-        if(app.tpwm != app.pwmlast){
-            app.crepuscolare_changet = true;
-        }
-        if(app.crepuscolare_changet){
-            switch(app.pwmstatemachine){
-                case 0:
-                    app.time_isteresi_crepuscolare = millis();
-                    app.pwmstatemachine = 1;
-                break;
-                case 1:
-                    if((millis()-app.time_isteresi_crepuscolare)>=3000){
-                        if(app.tpwm != app.pwmlast){
-                            app.pwmlast = app.tpwm;
-                            app.pwmstatemachine = 0;
-                            app.crepuscolare_changet = false;
-                            //cambia pwm
-                            app.pwm = app.tpwm;
-                            if(app.onLed_state){
-                                softPWM_Set(&soft_pwm, app.pwm);
-                            }
+
+    if(app.ADC_NOTTE_value <= CREPUSCOLARE){
+        app.tpwm=10;
+    }else{
+        app.tpwm=100;
+    }
+    if(app.tpwm != app.pwmlast){
+        app.crepuscolare_changet = true;
+    }
+    if(app.crepuscolare_changet){
+        switch(app.pwmstatemachine){
+            case 0:
+                app.time_isteresi_crepuscolare = millis();
+                app.pwmstatemachine = 1;
+            break;
+            case 1:
+                if((millis()-app.time_isteresi_crepuscolare)>=3000){
+                    if(app.tpwm != app.pwmlast){
+                        app.pwmlast = app.tpwm;
+                        app.pwmstatemachine = 0;
+                        app.crepuscolare_changet = false;
+                        //cambia pwm
+                        app.pwm = app.tpwm;
+                        if(app.onLed_state){
+                            softPWM_Set(&soft_pwm, app.pwm);
                         }
                     }
-                break;                
-            }
+                }
+            break;                
         }
-        ADC_START();
+    }
+    NOP();
+    //task Batteria LED RGB
+    if(app.BATTERIA_IDENTIFY==false){   //Batteria 12 Volt
+        if(app.ADC_BATTERIA_value <= BATTERIA_12v_LOW){
+            RGB_LED(RGB_ROSSO);
+            battery_anomalia_LOW();                   
+        }else if ((app.ADC_BATTERIA_value > BATTERIA_12v_LOW)&&(app.ADC_BATTERIA_value <= BATTERIA_12v_MID)){
+            RGB_LED(RGB_GIALLO);
+            //Task Batteria Anomalia
+            //3beep
+            battery_anomalia_MID();
+        }else{
+            RGB_LED(RGB_VERDE);
+        }
+    }else{                              //Batteria 24 Volt
+        if(app.ADC_BATTERIA_value <= BATTERIA_24v_LOW){
+            RGB_LED(RGB_ROSSO);
+            battery_anomalia_LOW();                   
+        }else if ((app.ADC_BATTERIA_value > BATTERIA_24v_LOW)&&(app.ADC_BATTERIA_value <= BATTERIA_24v_MID)){
+            RGB_LED(RGB_GIALLO);
+            battery_anomalia_MID();
+        }else{
+            RGB_LED(RGB_VERDE);
+        }
     }
 
     NOP();
     //Soft PWM TASK
     softPWM_task(&soft_pwm);
+    
+    NOP();
+    //Task ADC Conversion [sequence conversion ADC0 - ADC1]
+    ADC_Task_sequence_conversion();    
   }
    // __delay_ms(1000); // 1 Second Delay
 }

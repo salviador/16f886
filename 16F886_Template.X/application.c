@@ -73,30 +73,6 @@ void buzzer_Stop(void){
  app.buzzer_state = 0; 
 }
 
-void ADC_notte_init(void){
-    TRISAbits.TRISA1 = 1;    
-    ADCON0bits.CHS = 1; //CH1
-    ADCON0bits.ADON = 1;
-    PIE1bits.ADIE = 1;
-    PIR1bits.ADIF = 0;
-    
-    app.adc_flag = false;
-    ADCON0bits.GO_DONE = 1; //Start Conversion ADC
-    //ADRESH
-}
-bool ADC_IS_DONE(void){
-    return app.adc_flag;
-}
-void ADC_START(void){
-    app.adc_flag = false;    
-    ADCON0bits.GO_DONE = 1; //Start Conversion ADC
-}
-uint8_t ADC_VALUE(void){
-    uint8_t adcva;
-    adcva = ADRESH;
-    return adcva;
-}
-
 void out_init(void){
     TRISAbits.TRISA5 = 0;   
     TRISAbits.TRISA3 = 0;   
@@ -152,6 +128,11 @@ void out_init(void){
     app.tpwm = 100;
     app.pwmlast = 100;
     app.pwm = 100;    
+    
+    //LED RGB
+    TRISBbits.TRISB5 = 0;
+    TRISBbits.TRISB7 = 0;
+    RGB_LED(RGB_OFF);
 }
 
 void out_toggle(struct OUTPUT* p){
@@ -263,4 +244,151 @@ void save_modalita_SW4(uint8_t modalita){
         eepvar.P4_state = 0;
         eeprom_Save();
     }
+}
+
+void RGB_LED(uint8_t value){
+    switch(value){
+        case RGB_OFF:
+            PORTBbits.RB5 = 0;
+            PORTBbits.RB7 = 0;            
+        break;
+        case RGB_VERDE:
+            PORTBbits.RB5 = 1;
+            PORTBbits.RB7 = 0;            
+        break;
+        case RGB_GIALLO:
+            PORTBbits.RB5 = 1;
+            PORTBbits.RB7 = 1;            
+        break;
+        case RGB_ROSSO:
+            PORTBbits.RB5 = 0;
+            PORTBbits.RB7 = 1;            
+        break;
+    }
+}
+
+void battery_anomalia_MID(void){
+    switch(app.state_BATTERY_ANOMALIA){
+        case 0:
+            buzzer_Start(1000);
+            app.state_BATTERY_ANOMALIA = 1;
+            app.beep_ms_BATTERY_ANOMALIA = millis();
+        break;
+        case 1:
+            if((millis()-app.beep_ms_BATTERY_ANOMALIA)>2000){
+                app.state_BATTERY_ANOMALIA = 2;
+            }
+        break;
+        case 2:
+            buzzer_Start(1000);
+            app.state_BATTERY_ANOMALIA = 3;
+            app.beep_ms_BATTERY_ANOMALIA = millis();                    
+        break;
+        case 3:
+            if((millis()-app.beep_ms_BATTERY_ANOMALIA)>2000){
+                app.state_BATTERY_ANOMALIA = 4;
+            }
+        break;                
+        case 4:
+            buzzer_Start(1000);
+            app.state_BATTERY_ANOMALIA = 5;
+            app.beep_ms_BATTERY_ANOMALIA = millis();
+        break;
+        default:
+            if(outputs[3]->state == true){
+                out_mod1_SW4__OFF(outputs[3]);
+            }
+        break;                
+    } 
+}
+void battery_anomalia_LOW(void){
+    if(outputs[3]->state == true){
+        out_mod1_SW4__OFF(outputs[3]);
+    }
+    if(outputs[0]->state == true){
+        out_toggle(outputs[0]);
+    }   
+}
+
+//*****************ADC*****************
+//*****************ADC*****************
+//*****************ADC*****************
+//*****************ADC*****************
+//*****************ADC*****************
+
+enum ADC_CHANNEL {CH_BATTERIA=0u, CH_NOTTE=1u};
+
+void ADC_Task_sequence_conversion(void){
+    switch(app.state_ADC_sequence){
+        case 0:
+            if(!ADC_IS_DONE()){
+                ADCON0bits.CHS = CH_BATTERIA;
+                ADC_START();
+                app.state_ADC_sequence = 1;
+            }
+        break;
+        case 1:
+            if(ADC_IS_DONE()){
+                app.ADC_BATTERIA_value = ADC_VALUE();
+                app.state_ADC_sequence = 2;
+                app.adc_flag = false;
+           }            
+        break;
+        case 2:
+            if(!ADC_IS_DONE()){
+                ADCON0bits.CHS = CH_NOTTE;
+                ADC_START();
+                app.state_ADC_sequence = 3;
+            }
+        break;
+        case 3:
+            if(ADC_IS_DONE()){
+                app.ADC_NOTTE_value = ADC_VALUE();
+                app.state_ADC_sequence = 0;
+                app.adc_flag = false;
+           }            
+        break;        
+    }
+}
+
+void ADC_sequence_init(uint8_t sogliaBatteria){
+    TRISAbits.TRISA0 = 1;    
+    TRISAbits.TRISA1 = 1;    
+    ADCON0bits.CHS = CH_BATTERIA; //CH1
+    ADCON0bits.ADON = 1;
+    PIE1bits.ADIE = 1;
+    PIR1bits.ADIF = 0;
+    
+    app.adc_flag = false;
+  //  ADCON0bits.GO_DONE = 1; //Start Conversion ADC
+    //ADRESH
+    app.state_ADC_sequence = 0;
+    app.state_BATTERY_ANOMALIA = 0;
+    //Identifica Batteria
+    __delay_ms(500);
+    //while(1){
+        ADC_START();
+        while(ADC_IS_DONE()==0){}
+        app.ADC_BATTERIA_value = ADC_VALUE();
+        if(app.ADC_BATTERIA_value < sogliaBatteria){
+            app.BATTERIA_IDENTIFY = false;   // BATT 12V
+        }else{
+            app.BATTERIA_IDENTIFY = true;   // BATT 24V
+        }
+        app.adc_flag = false; 
+        NOP();
+    //}
+    
+}
+bool ADC_IS_DONE(void){
+    return app.adc_flag;
+}
+void ADC_START(void){
+    app.adc_flag = false;    
+    ADCON0bits.GO_DONE = 1; //Start Conversion ADC
+}
+uint8_t ADC_VALUE(void){
+    uint8_t adcva;
+    adcva = ADRESH;
+    return adcva;
 }
