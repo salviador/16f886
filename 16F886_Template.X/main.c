@@ -69,7 +69,7 @@ extern struct EEP_VAR eepvar;  //Qui carico le variabili che voglio salvare
 extern struct SOFT_PWM soft_pwm;
 
 void main(void) {
-  uint8_t i, temp;
+  uint8_t i;
   //Osc 8MHz internal
   OSCCONbits.IRCF = 7;
   while(OSCCONbits.HTS==0);  
@@ -158,10 +158,12 @@ void main(void) {
     }
     NOP();
     //OnLed task stop se inattivi
-    if((app.onLed_state)&&(output_P1.state == 0)&&(output_P2.state == 0)&&(output_P3.state == 0)&&(output_P4.state == 0)){
+    if((app.onLed_state)&&(ENGINE==0)&&(output_P1.state == 0)&&(output_P2.state == 0)&&(output_P3.state == 0)&&(output_P4.state == 0)){
         if((millis()-app.onLed_starttime)>=ONLED_TIME){
             ON_LED(false);
         }
+    }else if(ENGINE==1){
+        ON_LED(true);
     }
     NOP();
     //SW4 Modalita 1
@@ -176,7 +178,7 @@ void main(void) {
     }else{
         app.tpwm=100;
     }
-    if(app.tpwm != app.pwmlast){
+    if(app.tpwm != app.pwmlast){        
         app.crepuscolare_changet = true;
     }
     if(app.crepuscolare_changet){
@@ -189,7 +191,6 @@ void main(void) {
                 if((millis()-app.time_isteresi_crepuscolare)>=3000){
                     if(app.tpwm != app.pwmlast){
                         app.pwmlast = app.tpwm;
-                        app.pwmstatemachine = 0;
                         app.crepuscolare_changet = false;
                         //cambia pwm
                         app.pwm = app.tpwm;
@@ -197,6 +198,7 @@ void main(void) {
                             softPWM_Set(&soft_pwm, app.pwm);
                         }
                     }
+                    app.pwmstatemachine = 0;
                 }
             break;                
         }
@@ -226,7 +228,64 @@ void main(void) {
             RGB_LED(RGB_VERDE);
         }
     }
-
+    NOP();
+    //Task FeedBack Pin
+    if(FB1==1){
+        //Spegni Anomalia
+        if(outputs[0]->state){
+            out_toggle(outputs[0]);
+            outputs[0]->state_FB_anomalia_CH = 0; 
+        } 
+    }else if((FB1==0)&&(outputs[0]->state_FB_anomalia_CH==2)){
+        outputs[0]->state_FB_anomalia_CH = 2; 
+        outputs[0]->cnt_FB_anomalia_CH = 0;
+    }
+    if(outputs[0]->state_FB_anomalia_CH!=2){
+        Anomalia_FB_task(outputs[0]);
+    }
+    //--
+    if(FB2==1){
+        //Spegni Anomalia
+        if(outputs[1]->state){
+            out_toggle(outputs[1]);
+            outputs[1]->state_FB_anomalia_CH = 0; 
+        } 
+    }else if((FB2==0)&&(outputs[1]->state_FB_anomalia_CH==2)){
+        outputs[1]->state_FB_anomalia_CH = 2; 
+        outputs[1]->cnt_FB_anomalia_CH = 0;
+    }
+    if(outputs[1]->state_FB_anomalia_CH!=2){
+        Anomalia_FB_task(outputs[1]);
+    }
+    //--
+    if(FB3==1){
+        //Spegni Anomalia
+        if(outputs[2]->state){
+            out_toggle(outputs[2]);
+            outputs[2]->state_FB_anomalia_CH = 0; 
+        } 
+    }else if((FB3==0)&&(outputs[2]->state_FB_anomalia_CH==2)){
+        outputs[2]->state_FB_anomalia_CH = 2; 
+        outputs[2]->cnt_FB_anomalia_CH = 0;
+    }
+    if(outputs[2]->state_FB_anomalia_CH!=2){
+        Anomalia_FB_task(outputs[2]);
+    }    
+    //--
+    if(FB4==1){
+        //Spegni Anomalia
+        if(outputs[3]->state){
+            out_toggle(outputs[3]);
+            outputs[3]->state_FB_anomalia_CH = 0; 
+        } 
+    }else if((FB4==0)&&(outputs[3]->state_FB_anomalia_CH==2)){
+        outputs[3]->state_FB_anomalia_CH = 2; 
+        outputs[3]->cnt_FB_anomalia_CH = 0;
+    }
+    if(outputs[3]->state_FB_anomalia_CH!=2){
+        Anomalia_FB_task(outputs[3]);
+    }    
+    
     NOP();
     //Soft PWM TASK
     softPWM_task(&soft_pwm);

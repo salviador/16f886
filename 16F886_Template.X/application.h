@@ -17,6 +17,13 @@ extern "C" {
     
     #define NUM_PULSANTI 4
 
+    #define FB1 PORTCbits.RC7
+    #define FB2 PORTCbits.RC6
+    #define FB3 PORTCbits.RC5
+    #define FB4 PORTCbits.RC4
+
+    #define ENGINE PORTAbits.RA4
+
     struct APP{
         //BUZZER
         bool buzzer_state;
@@ -58,6 +65,12 @@ extern "C" {
         unsigned char pinLED;   
         //state
         bool state;
+        
+        //Anomalia FeedBack task
+        uint8_t state_FB_anomalia_CH;
+        uint8_t cnt_FB_anomalia_CH;
+        uint32_t ms_FB_anomalia_CH;
+        
     };
     
     void switch_init(void);
@@ -80,7 +93,7 @@ extern "C" {
     void RGB_LED(uint8_t value);
     void battery_anomalia_MID(void);
     void battery_anomalia_LOW(void);
-    
+    void Anomalia_FB_task(struct OUTPUT* p);
     
     enum RGB_LED_COLOR {RGB_OFF, RGB_VERDE, RGB_GIALLO, RGB_ROSSO};
 

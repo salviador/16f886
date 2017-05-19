@@ -55,6 +55,13 @@ void switch_init(void){
   pulsante_INIT_debounce(&P4_GIALLO);
   
   app.pwm = 100;
+  
+  TRISCbits.TRISC7 = 1;
+  TRISCbits.TRISC6 = 1;
+  TRISCbits.TRISC5 = 1;
+  TRISCbits.TRISC4 = 1;
+  
+  TRISAbits.TRISA4 = 1;  
 }
 
 void buzzer_init(void){
@@ -122,7 +129,7 @@ void out_init(void){
 
     soft_pwm.port = &PORTA;
     soft_pwm.pin = 7;
-    softPWM_init(&soft_pwm,50);
+    softPWM_init(&soft_pwm,200);
     app.crepuscolare_changet = false;
     app.pwmstatemachine = 0;
     app.tpwm = 100;
@@ -133,6 +140,16 @@ void out_init(void){
     TRISBbits.TRISB5 = 0;
     TRISBbits.TRISB7 = 0;
     RGB_LED(RGB_OFF);
+    
+    output_P1.state_FB_anomalia_CH = 2;
+    output_P1.cnt_FB_anomalia_CH = 0;
+    output_P2.state_FB_anomalia_CH = 2;
+    output_P2.cnt_FB_anomalia_CH = 0;
+    output_P3.state_FB_anomalia_CH = 2;
+    output_P3.cnt_FB_anomalia_CH = 0;
+    output_P4.state_FB_anomalia_CH = 2;
+    output_P4.cnt_FB_anomalia_CH = 0;
+    
 }
 
 void out_toggle(struct OUTPUT* p){
@@ -167,7 +184,7 @@ void out_toggle(struct OUTPUT* p){
 }
 void out_SW1_SW2__ON(struct OUTPUT* o1, struct OUTPUT* o2){
     //Write Pin
-    uint8_t value, pinmask;
+    uint8_t pinmask;
     //Potenza
     //Set 1
     pinmask = (1<<o1->pinPOTENZA);
@@ -378,7 +395,11 @@ void ADC_sequence_init(uint8_t sogliaBatteria){
         app.adc_flag = false; 
         NOP();
     //}
-    
+    ADCON0bits.CHS = CH_NOTTE; //CH1
+    ADC_START();
+    while(ADC_IS_DONE()==0){}    
+    app.ADC_NOTTE_value = ADC_VALUE();
+    app.adc_flag = false; 
 }
 bool ADC_IS_DONE(void){
     return app.adc_flag;
@@ -391,4 +412,38 @@ uint8_t ADC_VALUE(void){
     uint8_t adcva;
     adcva = ADRESH;
     return adcva;
+}
+
+void Anomalia_FB_task(struct OUTPUT* p){
+    uint8_t pinmask;
+    //Lampeggia e Buzzer beep beep beep 
+    switch(p->state_FB_anomalia_CH){
+        case 0:
+            if((millis()-p->ms_FB_anomalia_CH)>=200){
+                //Led
+                //Set 1
+                pinmask = (1<<p->pinLED);
+                *p->portLED = *p->portLED | pinmask;                        
+                buzzer_Start(100);
+                p->state_FB_anomalia_CH = 1;            
+                p->ms_FB_anomalia_CH = millis();
+            }
+        break;
+        case 1:
+            if((millis()-p->ms_FB_anomalia_CH)>=200){
+                //Set 0
+                pinmask = ~(1<<p->pinLED);
+                *p->portLED = *p->portLED & pinmask;
+                p->ms_FB_anomalia_CH = millis();
+                p->cnt_FB_anomalia_CH++;
+                p->state_FB_anomalia_CH = 0;                 
+                if(p->cnt_FB_anomalia_CH>5){
+                   p->state_FB_anomalia_CH = 2; 
+                }
+            }
+        break;
+        case 2:
+            p->cnt_FB_anomalia_CH = 0;
+        break;
+    }
 }
